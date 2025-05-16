@@ -3,7 +3,7 @@
 
 # VFK.Extensions.Authentication
 
-Contains builder extensions to extend a dotnet core application with Authentication.
+Contains builder extensions to extend a dotnet core application with authentication functionality.
 
 ## Usage in an Azure Function / Azure Web App
 
