@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+
+        <PackageId>VFK.Extensions.Authentication</PackageId>
+        <Version>1.0.1</Version>
+        <Authors>Rune Moskvil Lyngås</Authors>
+        <Company>Vestfold fylkeskommune</Company>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Azure.Identity" Version="1.14.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.5" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.5" />
+        <PackageReference Include="Microsoft.Graph" Version="5.78.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="../README.md">
+            <Pack>True</Pack>
+            <PackagePath>/</PackagePath>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="LICENSE" Pack="true" PackagePath="" />
+    </ItemGroup>
+
+    <PropertyGroup>
+        <PackagePath>bin/Release/</PackagePath>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <RepositoryUrl>https://github.com/vestfoldfylke/vfk-extensions-authentication</RepositoryUrl>
+    </PropertyGroup>
+
+</Project>
