@@ -1,7 +1,7 @@
 using Azure.Core;
 using Microsoft.Graph;
 
-namespace VFK.Extensions.Authentication.Services;
+namespace Vestfold.Extensions.Authentication.Services;
 
 public interface IAuthenticationService
 {

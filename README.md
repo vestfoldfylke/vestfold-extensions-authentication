@@ -1,7 +1,7 @@
-![NuGet Version](https://img.shields.io/nuget/v/VFK.Extensions.Authentication.svg)
-![NuGet Downloads](https://img.shields.io/nuget/dt/VFK.Extensions.Authentication.svg)
+![NuGet Version](https://img.shields.io/nuget/v/Vestfold.Extensions.Authentication.svg)
+![NuGet Downloads](https://img.shields.io/nuget/dt/Vestfold.Extensions.Authentication.svg)
 
-# VFK.Extensions.Authentication
+# Vestfold.Extensions.Authentication
 
 Contains builder extensions to extend a dotnet core application with authentication functionality.
 
@@ -35,7 +35,7 @@ To set `Graph base url` at a global level (optional, defaults to https://graph.m
 ```csharp
 var builder = FunctionsApplication.CreateBuilder(args);
 builder.ConfigureFunctionsWebApplication();
-builder.Services.AddVfkAuthentication();
+builder.Services.AddVestfoldAuthentication();
 builder.Build().Run();
 ```
 
@@ -45,7 +45,7 @@ builder.Build().Run();
 public static async Task Main(string[] args)
 {
     await Host.CreateDefaultBuilder(args)
-        .ConfigureServices(services => services.AddVfkAuthentication())
+        .ConfigureServices(services => services.AddVestfoldAuthentication())
         .Build()
         .RunAsync();
 
@@ -57,7 +57,7 @@ public static async Task Main(string[] args)
 
 ```csharp
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddVfkAuthentication();
+builder.Services.AddVestfoldAuthentication();
 
 var app = builder.Build();
 ```

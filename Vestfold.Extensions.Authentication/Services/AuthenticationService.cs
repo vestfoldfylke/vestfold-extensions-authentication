@@ -4,7 +4,7 @@ using Azure.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Graph;
 
-namespace VFK.Extensions.Authentication.Services;
+namespace Vestfold.Extensions.Authentication.Services;
 
 public class AuthenticationService : IAuthenticationService
 {

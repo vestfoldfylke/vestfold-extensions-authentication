@@ -6,8 +6,8 @@
         <Nullable>enable</Nullable>
         <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
 
-        <PackageId>VFK.Extensions.Authentication</PackageId>
-        <Version>1.0.1</Version>
+        <PackageId>Vestfold.Extensions.Authentication</PackageId>
+        <Version>1.0.0</Version>
         <Authors>Rune Moskvil Lyngås</Authors>
         <Company>Vestfold fylkeskommune</Company>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -40,7 +40,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <RepositoryUrl>https://github.com/vestfoldfylke/vfk-extensions-authentication</RepositoryUrl>
+        <RepositoryUrl>https://github.com/vestfoldfylke/vestfold-extensions-authentication</RepositoryUrl>
     </PropertyGroup>
 
 </Project>

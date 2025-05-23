@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VFK.Extensions.Authentication", "VFK.Extensions.Authentication\VFK.Extensions.Authentication.csproj", "{1CCC9515-8143-431F-ABD9-126C7ED34CAC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vestfold.Extensions.Authentication", "Vestfold.Extensions.Authentication\Vestfold.Extensions.Authentication.csproj", "{1CCC9515-8143-431F-ABD9-126C7ED34CAC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
