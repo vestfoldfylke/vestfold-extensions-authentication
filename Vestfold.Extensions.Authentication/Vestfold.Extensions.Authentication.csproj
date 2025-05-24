@@ -7,7 +7,7 @@
         <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
 
         <PackageId>Vestfold.Extensions.Authentication</PackageId>
-        <Version>1.0.1</Version>
+        <Version>1.0.2</Version>
         <Authors>Rune Moskvil Lyngås</Authors>
         <Company>Vestfold fylkeskommune</Company>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -21,7 +21,7 @@
         <PackageReference Include="Azure.Identity" Version="1.14.0" />
         <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.5" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.5" />
-        <PackageReference Include="Microsoft.Graph" Version="5.78.0" />
+        <PackageReference Include="Microsoft.Graph" Version="5.79.0" />
     </ItemGroup>
 
     <ItemGroup>
