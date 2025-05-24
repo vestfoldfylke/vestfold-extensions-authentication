@@ -12,6 +12,9 @@ public class AuthenticationService : IAuthenticationService
 
     private readonly string _graphBaseUrl;
     
+    private const string DefaultGraphBaseUrl = "https://graph.microsoft.com/v1.0";
+    private const string DefaultGraphScope = "https://graph.microsoft.com/.default";
+    
     public AuthenticationService(IConfiguration configuration)
     {
         var defaultAzureOptions = new DefaultAzureCredentialOptions
@@ -26,7 +29,7 @@ public class AuthenticationService : IAuthenticationService
             }
         };
         
-        _graphBaseUrl = configuration["GRAPH_BASE_URL"] ?? "https://graph.microsoft.com/v1.0";
+        _graphBaseUrl = configuration["GRAPH_BASE_URL"] ?? DefaultGraphBaseUrl;
         
         _azureCredential = new DefaultAzureCredential(defaultAzureOptions);
     }
@@ -37,7 +40,7 @@ public class AuthenticationService : IAuthenticationService
         
         graphScopes ??=
         [
-            "https://graph.microsoft.com/.default"
+            DefaultGraphScope
         ];
         
         return new GraphServiceClient(_azureCredential, graphScopes, graphBaseUrl);
