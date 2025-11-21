@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Azure.Core;
 using Microsoft.Graph;
 
