@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  publish-npm-package:
+  publish-nuget-package:
     if: |
       github.event_name == 'workflow_dispatch' || 
       (github.event_name == 'release' && github.event.release.target_commitish == 'main')
