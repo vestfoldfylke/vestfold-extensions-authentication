@@ -3,47 +3,17 @@ name: publish
 on:
   release:
     types: [published]
-    branches: [main]
-  workflow_dispatch:
-
-env:
-  PROJECT_PATH: Vestfold.Extensions.Authentication/Vestfold.Extensions.Authentication.csproj
-  PROJECT_RELEASE_PATH: Vestfold.Extensions.Authentication/bin/Release
-  NUGET_SOURCE: https://api.nuget.org/v3/index.json
-  DOTNET_VERSION: 8.0.x
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
+  publish-npm-package:
+    if: github.event.release.target_commitish == 'main' # Only run this workflow if the release is created from the main branch
+    uses: vestfoldfylke/shared/.github/workflows/publish-nuget-package.yml@main
     permissions:
-      id-token: write  # enable GitHub OIDC token issuance for this job
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-
-    # Build/pack the project
-    - name: Setup .NET ${{ env.DOTNET_VERSION }}
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
-
-    - name: Restore dependencies
-      run: dotnet restore
-
-    - name: Test
-      run: dotnet test
-
-    - name: Build and pack project # <GeneratePackageOnBuild>true</GeneratePackageOnBuild> must be added to .csproj
-      run: dotnet build --configuration Release
-
-    # Get a short-lived NuGet API key (1 hour)
-    - name: NuGet login (OIDC → temp API key)
-      uses: NuGet/login@v1
-      id: login
-      with:
-        user: ${{ secrets.NUGET_USER }} # Recommended: use a secret like ${{ secrets.NUGET_USER }} for your nuget.org username (profile name), NOT your email address
-
-    - name: Publish NuGet package to NuGet.org
-      run: dotnet nuget push ${{ env.PROJECT_RELEASE_PATH }}/*.nupkg --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --source ${{ env.NUGET_SOURCE }}
+      id-token: write  # Required for OIDC (trusted publisher setup)
+      contents: read
+    with:
+      dotnet_version: "8.0.x" # this one is optional and defaults to "8.0.x" if not set. Can be any version supported by actions/setup-dotnet, e.g. "8.0.x", "9.0.x", "10.0.x"
+      project_path: "Vestfold.Extensions.Authentication/Vestfold.Extensions.Authentication.csproj" # this one is required and should be the path to the .csproj file relative to the root of the repository
+      project_release_path: "Vestfold.Extensions.Authentication/bin/Release" # this one is required and should be the path to the directory containing the .nupkg file(s) relative to the root of the repository
+    secrets:
+      NUGET_USER: ${{ secrets.NUGET_USER }} # required. Recommended: use a secret like ${{ secrets.NUGET_USER }} for your nuget.org username (profile name), NOT your email address
