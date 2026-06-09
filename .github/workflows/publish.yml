@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - name: Publish NuGet package
-        uses: vestfoldfylke/shared/.github/actions/nuget-publish@main
+        uses: vestfoldfylke/shared/.github/actions/nuget-publish@690dc633a6591024a2b28d84b166151ff4c24c0d # v1.0.0
         with:
           nuget_user: ${{ secrets.NUGET_USER }}
           dotnet_version: "8.0.x"
