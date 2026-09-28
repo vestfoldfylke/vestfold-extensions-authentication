@@ -17,8 +17,9 @@ jobs:
 
     steps:
       - name: Publish NuGet package
-        uses: vestfoldfylke/shared/.github/actions/nuget-publish@057ec10bc172dc9872db28c2e1d004761adec280 # v1.3.6
+        uses: vestfoldfylke/shared/.github/actions/nuget-publish@cc6932b2061b90cf09e3310abb77655ec58c560f # v1.3.7
         with:
           nuget_user: ${{ secrets.NUGET_USER }}
           dotnet_version: "10.0.x"
-          project_release_path: "Vestfold.Extensions.Authentication/bin/Release"
+          framework_version: "net10.0"
+          project_path: "Vestfold.Extensions.Authentication"
