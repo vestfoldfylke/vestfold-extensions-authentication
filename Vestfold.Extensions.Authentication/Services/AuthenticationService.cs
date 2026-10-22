@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Core.Diagnostics;
@@ -9,13 +10,13 @@ namespace Vestfold.Extensions.Authentication.Services;
 
 public class AuthenticationService : IAuthenticationService
 {
-    private readonly DefaultAzureCredential _azureCredential;
+    private readonly TokenCredential _tokenCredential;
 
     private readonly string _graphBaseUrl;
-    
+
     private const string DefaultGraphBaseUrl = "https://graph.microsoft.com/v1.0";
     private const string DefaultGraphScope = "https://graph.microsoft.com/.default";
-    
+
     public AuthenticationService(IConfiguration configuration)
     {
         var defaultAzureOptions = new DefaultAzureCredentialOptions
@@ -29,32 +30,50 @@ public class AuthenticationService : IAuthenticationService
                 IsAccountIdentifierLoggingEnabled = true
             }
         };
-        
+
+        var clientSecretOptions = new ClientSecretCredentialOptions
+        {
+            Diagnostics = 
+            {
+                IsLoggingEnabled = true,
+                IsLoggingContentEnabled = true,
+                LoggedHeaderNames = { "x-ms-request-id" },
+                LoggedQueryParameters = { "api-version" },
+                IsAccountIdentifierLoggingEnabled = true
+            }
+        };
+
         _graphBaseUrl = configuration["GRAPH_BASE_URL"] ?? DefaultGraphBaseUrl;
-        
-        _azureCredential = new DefaultAzureCredential(defaultAzureOptions);
+
+        var clientId = configuration["AZURE_CLIENT_ID"];
+        var clientSecret = configuration["AZURE_CLIENT_SECRET"];
+        var tenantId = configuration["AZURE_TENANT_ID"];
+
+        _tokenCredential = string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(clientSecret) || string.IsNullOrEmpty(tenantId)
+            ? new DefaultAzureCredential(defaultAzureOptions)
+            : new ClientSecretCredential(tenantId, clientId, clientSecret, clientSecretOptions);
     }
-    
+
     public GraphServiceClient CreateGraphClient(string? graphBaseUrl = null, string[]? graphScopes = null)
     {
         graphBaseUrl ??= _graphBaseUrl;
-        
+
         graphScopes ??=
         [
             DefaultGraphScope
         ];
-        
-        return new GraphServiceClient(_azureCredential, graphScopes, graphBaseUrl);
+
+        return new GraphServiceClient(_tokenCredential, graphScopes, graphBaseUrl);
     }
 
-    public async Task<AccessToken> GetAccessToken(string[] scopes, bool enableLogging = false)
+    public async Task<AccessToken> GetAccessToken(string[] scopes, bool enableLogging = false, CancellationToken cancellationToken = default)
     {
         if (!enableLogging)
         {
-            return await _azureCredential.GetTokenAsync(new TokenRequestContext(scopes));
+            return await _tokenCredential.GetTokenAsync(new TokenRequestContext(scopes), cancellationToken);
         }
-        
-        using AzureEventSourceListener listener = AzureEventSourceListener.CreateConsoleLogger();
-        return await _azureCredential.GetTokenAsync(new TokenRequestContext(scopes));
+
+        using var listener = AzureEventSourceListener.CreateConsoleLogger();
+        return await _tokenCredential.GetTokenAsync(new TokenRequestContext(scopes), cancellationToken);
     }
 }

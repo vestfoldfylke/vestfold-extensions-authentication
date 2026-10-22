@@ -88,7 +88,9 @@ public class Something
         // you can also optionally pass custom scopes, otherwise it will use the default scope https://graph.microsoft.com/.default
         _graphClient = authenticationService.CreateGraphClient();
         
-        // you can optionally pass a boolean to specify if you want to enable logging for the Azure Credential token process, otherwise it will default to false
+        // you can optionally pass:
+        // - a boolean to specify if you want to enable logging for the Azure Credential token process, otherwise it will default to false
+        // - a CancellationToken, otherwise it will be default
         _accessToken = await authenticationService.GetAccessToken(["https://whatever.no/.default"]);
     }
 }
